@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProdukController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,10 +44,14 @@ Route::get('/kontak', function () {
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', fn () => 'Dashboard Admin')
-        ->name('dashboard'); 
+        ->name('dashboard');
     Route::get('/pengaturan', fn () => 'Pengaturan Admin')
-        ->name('pengaturan');  
+        ->name('pengaturan');
 });
+
+Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
+Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
+Route::post('/produk', [ProdukController::class, 'store'])->name('produk.store');
 
 Route::redirect('/beranda', '/');
 
